@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title> Mission to Mars </title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        />
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron text-center" style= "background-image: url('https://www.nasa.gov/sites/default/files/images/581910main_PIA14293_full.jpg');">
+                <h1 style="color:#cc3608;"> Mission to Mars </h1>
+                <p><a class="btn btn-primary btn-lg" style="background-color: #cc3608; border: 0px; font-size: 24px;" href="/scrape" role="button">Scrape New Data</a></p>
+                </div>
+            </div>
+            <div class ="container-fluid" id="mars-news">
+                <div class="col-md-12">
+                    <div class="media">
+                        <div class="media-body">
+                            <h2 style="text-decoration:underline;">Latest Mars News</h2>
+                            <h4 class="media-heading" style="font-size:20px">{{ mars.news_title }}</h4>
+                            <p style="font: size 15px">{{ mars.news_paragraph }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" id="mars-featured-image">
+                <div class="col-md-8">
+                    <h2>Featured Mars Image</h2>
+                    <img
+                        src="{{ mars.featured_image | default ("static/images/error.png", true) }}"
+                        class="img-responsive"
+                        alt="centered image"
+                    />
+                </div>
+                <div class="container-fluid">
+                    <div class="container-fluid" style="font-family:verdana" id="mars-facts">
+                        <h2>Mars Facts</h2>
+                        {{ mars.facts | safe }}
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="background-color: whitesmoke" id="mars-hemispheres">
+                <div class="page-header">
+                    <h2 class="text-center">Mars Hemispheres</h2>
+                </div>
+                {% for hemisphere in mars.Hemispheres %}
+                <div class="col-sm-3">
+                    <div class="thumbnail">
+                        <img src="{{hemisphere.img_url | default("static/images/error.png", true)}}" alt="Responsive image" width="150" display="row" >
+                        <div class="img-responsive">
+                            <h4 class="text-center">{{hemisphere.title}}</h4> 
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div> 
+    </body>
+</html>
